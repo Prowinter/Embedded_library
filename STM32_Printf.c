@@ -19,6 +19,7 @@ PUTCHAR_PROTOTYPE
 
 // VScode 需额外添加此函数
 // 若需使用Printf,Sprintf操作Float型变量，还需在Makefile 对进行此操作 LDFLAGS = $(MCU) -u_printf_float -u_sprintf_float
+// 若使用CMakelists构建工程 还需要将 --specs=nano.specs 替换为 --specs=nosys.specs
 int _write(int file, char *ptr,int len)
 {
   int DataIdx;
