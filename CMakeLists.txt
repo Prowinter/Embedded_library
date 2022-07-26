@@ -42,16 +42,15 @@ project(${PRJ_NAME})
 # 使能汇编语言
 ENABLE_LANGUAGE(ASM)
 
-# set(CMAKE_BUILD_TYPE "Debug")
-# set(CMAKE_BUILD_TYPE "RELEASE")
+# set(CMAKE_BUILD_TYPE "DEBUG")
 
-# #设置浮点选项
-# SET(MCU_FLAGS "-mcpu=cortex-m3  -mthumb")
-# #设置警告相关信息
-# SET(CMAKE_C_FLAGS "${MCU_FLAGS} -Wno-unknown-pragmas")
-# #设置调试选项
-# SET(CMAKE_C_FLAGS_DEBUG "-O0 -g2 -ggdb")
-# SET(CMAKE_C_FLAGS_RELEASE "-Og -g")
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "RELEASE")
+endif ()
+
+#设置调试选项
+SET(CMAKE_C_FLAGS_DEBUG "-O0 -g2 -ggdb")
+SET(CMAKE_C_FLAGS_RELEASE "-Og -g")
 
 add_definitions(
     -DUSE_HAL_DRIVER
@@ -68,10 +67,8 @@ set(FLOAT-ABI  "")
 # mcu
 set(MCU  "${CPU} -mthumb ${FPU} ${FLOAT-ABI}")
 
-set(OPT  "-Og")
-
-set(CMAKE_C_FLAGS "${MCU} -fno-builtin ${OPT}  -Wall -fdata-sections -ffunction-sections")
-set(CMAKE_CXX_FLAGS "${MCU} -fno-builtin ${OPT} -Wall -fdata-sections -ffunction-sections")
+set(CMAKE_C_FLAGS "${MCU} -fno-builtin -Wall -fdata-sections -ffunction-sections")
+set(CMAKE_CXX_FLAGS "${MCU} -fno-builtin -Wall -fdata-sections -ffunction-sections")
 set(CMAKE_ASM_FLAGS "${MCU} -x assembler-with-cpp")
 
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
